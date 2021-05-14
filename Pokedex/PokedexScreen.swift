@@ -33,10 +33,10 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     func setUpVisual() {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.addSubview(self.loadingScreen)
-        self.layer.cornerRadius = 5
+        
         self.clipsToBounds = true
         self.layer.borderWidth = 5
-        self.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.isPagingEnabled = true
         self.delegate = self
         self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
@@ -48,7 +48,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.back.layer.cornerRadius = 4
         self.back.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
         
-        self.pokemonTitle.font = .systemFont(ofSize: 26, weight: UIFont.Weight(rawValue: 0.4))
+        self.pokemonTitle.font = UIFont(name: "Verdana Bold", size: 29)
         self.pokemonTitle.textColor = .black
         self.pokemonTitle.textAlignment = .right
     }

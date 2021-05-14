@@ -38,34 +38,37 @@ class ViewController: UIViewController {
     
     func downloadPokemon() {
         
-        var tempPokemon = [Int:PKMPokemon]()
         let cap = 152
-        
-        for i in 1 ... cap{
-            pokemonAPI.pokemonService.fetchPokemon(i){ data in
-                switch data{
-                case .success(let pokemon):
-                    tempPokemon[i] = pokemon
-                    pokemon.addFilters()
-                    let queue = DispatchQueue(label: "load")
-                    queue.async {
-                        DispatchQueue.main.async {
-                            if (tempPokemon.keys.count == cap){
-                                if let pokedex = self.pokedex{
-                                    pokedex.screen.loadingScreen.update(nil)
-                                    pokedex.screen.isLoading = false
-                                    pokedex.pokemon = self.handlePokemon(tempPokemon)
-                                    pokedex.screen.displayPokemon()
+        if let pokedex = self.pokedex{
+            for i in 1 ... cap{
+                pokemonAPI.pokemonService.fetchPokemon(i){ data in
+                    switch data{
+                    
+                    case .success(let pokemon):
+                        pokedex.pokemon.append(pokemon)
+                        pokemon.addFilters()
+                        let queue = DispatchQueue(label: "load")
+                        queue.async {
+                            DispatchQueue.main.async {
+                                if (pokedex.pokemon.count == cap){
+                                    if let pokedex = self.pokedex{
+                                        pokedex.screen.loadingScreen.update(nil)
+                                        pokedex.screen.isLoading = false
+                                        pokedex.pokemon = pokedex.pokemon.sorted(by: {$0.order! < $1.order!})
+                                        pokedex.screen.displayPokemon()
+                                    }
+                                }
+                                else{
+                                    pokedex.screen.loadingScreen.update(CGFloat(pokedex.pokemon.count)*100/CGFloat(152))
                                 }
                             }
-                            else{
-                                self.pokedex?.screen.loadingScreen.update(CGFloat(tempPokemon.keys.count)*100/CGFloat(152))
-                            }
                         }
+                        break
+                        
+                    case .failure(let error):
+                        print(error.localizedDescription)
                     }
-                    break
-                case .failure(let error):
-                    print(error.localizedDescription)
+                    
                 }
             }
         }

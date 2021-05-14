@@ -25,20 +25,31 @@ class PokedexView: UIScrollView {
         if (width > 400){
             width = 400
         }
-        self.screen = PokedexScreen(frame: CGRect(x: margin, y: margin, width: width, height: width))
+        self.screen = PokedexScreen(frame: CGRect(x: margin, y: margin+50, width: width, height: width))
         self.screen.center = CGPoint(x: frame.width/2, y: self.screen.center.y)
         self.screen.originalFrame = self.screen.frame
         self.filters = PokedexFilters(frame: CGRect(x: self.screen.frame.minX, y: self.screen.frame.maxY+margin, width: self.screen.frame.width, height: 100))
         
         super .init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 1, green: 0.3696548318, blue: 0.392158068, alpha: 1)
-        
-        self.addSubview(self.screen)
-        self.addSubview(self.filters)
-        self.contentSize = CGSize(width: self.frame.width, height: self.filters.frame.maxY+20)
         
         self.screen.pokedex = self
+        self.startUp()
         
+    }
+    
+    func startUp() {
+        self.backgroundColor = #colorLiteral(red: 1, green: 0.368627451, blue: 0.3921568627, alpha: 1)
+        self.contentSize = CGSize(width: self.frame.width, height: self.filters.frame.maxY+20)
+        
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 70))
+        title.text = "Pokédex"
+        title.font = UIFont(name: "Verdana Bold Italic", size: 29)
+        title.textAlignment = .center
+        title.textColor = .black
+        
+        self.addSubview(self.filters)
+        self.addSubview(title)
+        self.addSubview(self.screen)
     }
     
     required init?(coder: NSCoder) {

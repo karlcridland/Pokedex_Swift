@@ -11,7 +11,7 @@ import UIKit
 
 extension PKMPokemon{
     
-    private func displayImage(_ picture: UIImageView){
+    func displayImage(_ picture: UIImageView){
         if let image = PokedexView.images[self.id!]{
             picture.image = image
         }
@@ -25,41 +25,13 @@ extension PKMPokemon{
     }
     
     func display(frame: CGRect) -> UIView {
-        let view = UIView(frame: frame)
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        view.layer.cornerRadius = 12
-        view.layer.borderWidth = 3
-        view.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
-        let picture = UIImageView(frame: CGRect(x: 10, y: 20, width: frame.width-20, height: frame.height-45))
-        displayImage(picture)
-        picture.contentMode = .scaleAspectFit
-        view.addSubview(picture)
-        
-        let label = UILabel(frame: CGRect(x: 0, y: frame.height-30, width: frame.width, height: 20))
-        label.textColor = .black
-        label.text = self.name
-        label.font = .systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 0.3))
-        label.textAlignment = .center
-        view.addSubview(label)
-        
-        return view
+        return PKMSearchView(frame: frame, pokemon: self)
     }
     
     // Returns a scroll view which has all statistics available on the pokemon, including type, attack, etc.
     
     func statisticView(frame: CGRect) -> UIScrollView {
-        let view = UIScrollView(frame: frame)
-        
-        let picture = UIImageView(frame: CGRect(x: 20, y: 10, width: frame.width-40, height: 200))
-        picture.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.9)
-        picture.layer.borderWidth = 3
-        picture.contentMode = .scaleAspectFit
-        picture.layer.borderColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        self.displayImage(picture)
-        view.addSubview(picture)
-        
-        return view
+        return PKMStatisticView(frame: frame, pokemon: self)
     }
     
     func addFilters(){
@@ -85,7 +57,7 @@ extension PKMPokemon{
             case "grass":
                 return #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
             case "fire":
-                return #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+                return #colorLiteral(red: 1, green: 0.4333972633, blue: 0.2972377241, alpha: 1)
             case "water":
                 return #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
             case "poison":
