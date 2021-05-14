@@ -27,6 +27,8 @@ extension PKMPokemon{
         }
     }
     
+    // Returns a view which is used in the search results on the home screen.
+    
     func display(frame: CGRect) -> UIView {
         return PKMSearchView(frame: frame, pokemon: self)
     }
@@ -37,6 +39,9 @@ extension PKMPokemon{
     func statisticView(frame: CGRect) -> UIScrollView {
         return PKMStatisticView(frame: frame, pokemon: self)
     }
+    
+    // Used when initialising the app, adds a dictionary of unique values for the keys type,. When the approptiate filter
+    // key is pressed in the PokedexFilters class, the array of Strings built from this method will display.
     
     func addFilters(){
         if PokedexView.filterTypes["type"] == nil{
