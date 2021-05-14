@@ -14,6 +14,8 @@ class PokedexLoading: UIView {
     private let loaded = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 4))
     private let maxWidth: CGFloat
     
+    // First thing a user sees when opening the application, used to give them a perceivable update status.
+    
     override init(frame: CGRect) {
         self.maxWidth = frame.width - 10
         self.label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
@@ -32,6 +34,8 @@ class PokedexLoading: UIView {
         self.label.font = .systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 0.3))
     }
     
+    // Updates the progress bar - percentage is given as a value between 0 and 100.
+    
     func update(_ percent: CGFloat?) {
         if let percent = percent{
             self.label.text = "loading \(Int(percent))%"
@@ -40,12 +44,7 @@ class PokedexLoading: UIView {
         else{
             self.label.text = "loading 100%"
             self.loaded.frame = CGRect(x: 0, y: 0, width: self.maxWidth, height: 10)
-            UIView.animate(withDuration: 0.3) {
-                self.alpha = 0
-            } completion: { _ in
-                self.removeFromSuperview()
-            }
-
+            self.removeFromSuperview()
         }
     }
     

@@ -11,6 +11,9 @@ import UIKit
 
 extension PKMPokemon{
     
+    // Images for pokemon are stored in a static array in the PokedexView, if they aren't present then they're downloaded
+    // via the information stored in the pokemons sprites.
+    
     func displayImage(_ picture: UIImageView){
         if let image = PokedexView.images[self.id!]{
             picture.image = image
@@ -28,7 +31,8 @@ extension PKMPokemon{
         return PKMSearchView(frame: frame, pokemon: self)
     }
     
-    // Returns a scroll view which has all statistics available on the pokemon, including type, attack, etc.
+    // Returns a view which displays the following statistics for a chosen pokemon: name, id, height, weight, type, attack,
+    // and moves.
     
     func statisticView(frame: CGRect) -> UIScrollView {
         return PKMStatisticView(frame: frame, pokemon: self)
@@ -50,6 +54,9 @@ extension PKMPokemon{
             }
         }
     }
+    
+    // Takes the value of the pokemons primary type and assigns a color based on the value, is used for the background of
+    // the statistics view.
     
     func backgroundColor() -> UIColor? {
         if let type = self.types?[0].type?.name{

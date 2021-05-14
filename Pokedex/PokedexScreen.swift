@@ -41,10 +41,10 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.delegate = self
         self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
         
-        self.back.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.back.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.9)
         self.back.setTitle("back", for: .normal)
         self.back.setTitleColor(#colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1), for: .normal)
-        self.back.titleLabel!.font = .systemFont(ofSize: 18, weight: UIFont.Weight(rawValue: 0.3))
+        self.back.titleLabel!.font = UIFont(name: "Verdana Bold", size: 18)
         self.back.layer.cornerRadius = 4
         self.back.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
         
@@ -53,14 +53,14 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.pokemonTitle.textAlignment = .right
     }
     
-    // Toggles the screen to fit the size of the window, this is used in cases where the user needs to display extended information.
+    // Toggles the screen to fit the size of the window, this is used in cases where the user needs to display extended information
+    // such as the pokemons statistics.
     
     @objc func fullscreen(sender: UIButton){
         if (!isLoading){
             isFullscreen = !isFullscreen
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.5) {
                 if (self.isFullscreen){
-                    self.tag = Int(self.contentOffset.x)
                     self.layer.cornerRadius = 0
                     self.layer.borderWidth = 0
                     if let superview = self.superview{
@@ -79,28 +79,35 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
                     self.displayPokemon()
                 }
             }
-            self.contentOffset = CGPoint(x: self.tag, y: 0)
+            
+            if (isFullscreen){
+                self.tag = Int(self.contentOffset.x)
+                self.contentOffset = CGPoint(x: 0, y: 0)
+            }
+            else{
+                self.contentOffset = CGPoint(x: self.tag, y: 0)
+            }
+            
         }
     }
     
-    //
+    // Brings up an individual pokemons statistics, before displaying the page, all current views are removed from the page by
+    // fading out of view. The content offset is placed to coordinates (0, 0) as the statistics view is being placed on a
+    // scroll view that could be at varying x coordinates.
     
     func displayPokemonStatistics(_ pokemon: PKMPokemon) {
+        self.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
         UIView.animate(withDuration: 0.3) {
-            self.subviews.forEach { subview in
-                subview.alpha = 0
-            }
         }completion: { _ in
-            self.subviews.forEach { subview in
-                subview.removeFromSuperview()
-            }
             self.contentSize = CGSize(width: 0, height: 0)
             self.addSubview(self.back)
             self.addSubview(self.pokemonTitle)
             self.pokemonTitle.text = pokemon.name
             let statistics = pokemon.statisticView(frame: CGRect(x: 0, y: self.pokemonTitle.frame.maxY+20, width: self.frame.width, height: self.frame.height-(self.pokemonTitle.frame.maxY+20)))
             self.addSubview(statistics)
-            statistics.fadeIn(0.3)
+            statistics.fadeIn(0.2)
         }
     }
     
@@ -145,6 +152,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// Button stores a value of type PKMPokemon, used for the tile pieces a user clicks on in the screen scroll view.
 
 class PKMButton: UIButton{
     let pokemon: PKMPokemon

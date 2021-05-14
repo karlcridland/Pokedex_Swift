@@ -11,11 +11,22 @@ import PokemonAPI
 
 class PKMStatisticView: UIScrollView {
     
+    // Called when a user has clicked on a Pokemon tile to access more information. A picture is displayed, along with a
+    // caption stating the pokemon's index number, it's height, and weight. Statistics are provided in the statistics view,
+    // these include the pokemon's abilities, types, and moves.
+    
     let statistics = UITextView()
+    let pokemon: PKMPokemon
     
     init(frame: CGRect, pokemon: PKMPokemon) {
+        self.pokemon = pokemon
         super .init(frame: frame)
         
+        self.setUpPicture()
+        self.setUpStatistics()
+    }
+    
+    private func setUpPicture() {
         let picture = UIImageView(frame: CGRect(x: 20, y: 10, width: frame.width-40, height: 200))
         picture.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.9)
         picture.layer.borderWidth = 3
@@ -34,20 +45,22 @@ class PKMStatisticView: UIScrollView {
         if let id = pokemon.id{
             identification.text = "no. \(id)"
         }
-        identification.font = UIFont(name: "Verdana Bold Italic", size: 12)
-        identification.textColor = .black
-        underPicture.addSubview(identification)
         
         let stature = UILabel(frame: CGRect(x: underPicture.frame.width-293, y: 3, width: 280, height: 20))
         if let weight = pokemon.weight, let height = pokemon.height{
             stature.text = "height: \(height) / weight: \(weight)"
         }
-        stature.font = UIFont(name: "Verdana Bold Italic", size: 12)
-        stature.textColor = .black
-        stature.textAlignment = .right
-        underPicture.addSubview(stature)
         
-        statistics.frame = CGRect(x: 20, y: underPicture.frame.maxY+20, width: picture.frame.width, height: self.frame.height-underPicture.frame.maxY-40)
+        stature.textAlignment = .right
+        [identification,stature].forEach { label in
+            label.font = UIFont(name: "Verdana Bold Italic", size: 12)
+            label.textColor = .black
+            underPicture.addSubview(label)
+        }
+    }
+    
+    private func setUpStatistics(){
+        statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: self.frame.height-293)
         statistics.layer.cornerRadius = 8
         statistics.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
         statistics.font = UIFont(name: "Verdana Bold", size: 16)
@@ -63,7 +76,7 @@ class PKMStatisticView: UIScrollView {
         }
         statistics.text = text
         if (statistics.contentSize.height < statistics.frame.height){
-            statistics.frame = CGRect(x: 20, y: underPicture.frame.maxY+20, width: picture.frame.width, height: statistics.contentSize.height)
+            statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: statistics.contentSize.height)
         }
     }
     
@@ -96,7 +109,7 @@ class PKMStatisticView: UIScrollView {
             break
         }
         
-        return stats
+        return stats.suffix(8)
     }
     
     required init?(coder: NSCoder) {

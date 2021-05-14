@@ -14,9 +14,15 @@ class PokedexView: UIScrollView {
     var pokemon = [PKMPokemon]()
     let screen: PokedexScreen
     let filters: PokedexFilters
+    let title = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
 
     static var filterTypes = [String: [String]]()
     static var images = [Int: UIImage]()
+    
+    // Provides the main function for the app, all subviews can be found within the PokedexView, contains the screen
+    // variable where a user can swipe through pokemon to choose to view statistics on. When clicked, the screen
+    // expands to full size showing the pokemons statistics. The filters variable contains the views which a user
+    // interacts with to place a pokemon filter on the screen, narrowing a search result.
     
     override init(frame: CGRect) {
         
@@ -37,16 +43,16 @@ class PokedexView: UIScrollView {
         
     }
     
+    // Creates the basic aesthetic for the pokedex, red background to match the original look, a title is added,
+    // and the subviews are placed.
+    
     func startUp() {
         self.backgroundColor = #colorLiteral(red: 1, green: 0.368627451, blue: 0.3921568627, alpha: 1)
         self.contentSize = CGSize(width: self.frame.width, height: self.filters.frame.maxY+20)
-        
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 70))
-        title.text = "Pokédex"
-        title.font = UIFont(name: "Verdana Bold Italic", size: 29)
-        title.textAlignment = .center
-        title.textColor = .black
-        
+        self.title.text = "Pokédex"
+        self.title.font = UIFont(name: "Verdana Bold Italic", size: 29)
+        self.title.textAlignment = .center
+        self.title.textColor = .black
         self.addSubview(self.filters)
         self.addSubview(title)
         self.addSubview(self.screen)
@@ -56,9 +62,4 @@ class PokedexView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-}
-
-private enum pokedexFilter{
-    case type
-    case stat
 }

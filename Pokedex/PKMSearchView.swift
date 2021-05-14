@@ -11,6 +11,9 @@ import PokemonAPI
 
 class PKMSearchView: UIView {
     
+    // Called on the home screen, shows an image of the pokemon, and a title. Upon clicking the tile, the pokedex screen
+    // will expand to cover the phones screen and display information on a specific pokemon.
+    
     init(frame: CGRect, pokemon: PKMPokemon) {
         super .init(frame: frame)
         
