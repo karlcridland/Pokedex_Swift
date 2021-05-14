@@ -9,13 +9,32 @@ import Foundation
 import UIKit
 import PokemonAPI
 
-class PokedexView: UIView {
+class PokedexView: UIScrollView {
     
-    var pokemon = [Int: PKMPokemon]()
+    var pokemon = [PKMPokemon]()
+    let screen: PokedexScreen
+    let filters: PokedexFilters
     
     override init(frame: CGRect) {
+        
+        let margin = CGFloat(20)
+        var width = frame.width-(2*margin)
+        if (width > 400){
+            width = 400
+        }
+        self.screen = PokedexScreen(frame: CGRect(x: margin, y: margin, width: width, height: width))
+        self.screen.center = CGPoint(x: frame.width/2, y: self.screen.center.y)
+        self.screen.originalFrame = self.screen.frame
+        self.filters = PokedexFilters(frame: CGRect(x: self.screen.frame.minX, y: self.screen.frame.maxY+margin, width: self.screen.frame.width, height: 100))
+        
         super .init(frame: frame)
         self.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        
+        self.addSubview(self.screen)
+        self.addSubview(self.filters)
+        self.contentSize = CGSize(width: self.frame.width, height: self.filters.frame.maxY+20)
+        
+        self.screen.pokedex = self
         
     }
     
