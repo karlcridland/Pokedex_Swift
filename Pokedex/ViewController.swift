@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
         UIApplication.shared.windows.forEach { window in
             window.overrideUserInterfaceStyle = .dark
         }
@@ -39,13 +39,14 @@ class ViewController: UIViewController {
     func downloadPokemon() {
         
         var tempPokemon = [Int:PKMPokemon]()
-        let cap = 20
+        let cap = 152
         
         for i in 1 ... cap{
             pokemonAPI.pokemonService.fetchPokemon(i){ data in
                 switch data{
                 case .success(let pokemon):
                     tempPokemon[i] = pokemon
+                    pokemon.addFilters()
                     let queue = DispatchQueue(label: "load")
                     queue.async {
                         DispatchQueue.main.async {

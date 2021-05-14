@@ -14,6 +14,9 @@ class PokedexView: UIScrollView {
     var pokemon = [PKMPokemon]()
     let screen: PokedexScreen
     let filters: PokedexFilters
+
+    static var filterTypes = [String: [String]]()
+    static var images = [Int: UIImage]()
     
     override init(frame: CGRect) {
         
@@ -28,7 +31,7 @@ class PokedexView: UIScrollView {
         self.filters = PokedexFilters(frame: CGRect(x: self.screen.frame.minX, y: self.screen.frame.maxY+margin, width: self.screen.frame.width, height: 100))
         
         super .init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 1, green: 0.3696548318, blue: 0.392158068, alpha: 1)
         
         self.addSubview(self.screen)
         self.addSubview(self.filters)
