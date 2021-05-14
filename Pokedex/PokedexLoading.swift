@@ -34,7 +34,7 @@ class PokedexLoading: UIView {
         self.label.font = .systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 0.3))
     }
     
-    // Updates the progress bar - percentage is given as a value between 0 and 100.
+    // Updates the progress bar - percentage is given as a value between 0 and 100. 
     
     func update(_ percent: CGFloat?) {
         if let percent = percent{

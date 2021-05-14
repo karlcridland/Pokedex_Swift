@@ -44,7 +44,7 @@ class PokedexView: UIScrollView {
     }
     
     // Creates the basic aesthetic for the pokedex, red background to match the original look, a title is added,
-    // and the subviews are placed.
+    // and the subviews are placed. 
     
     func startUp() {
         self.backgroundColor = #colorLiteral(red: 1, green: 0.368627451, blue: 0.3921568627, alpha: 1)

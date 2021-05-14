@@ -28,15 +28,17 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.setUpVisual()
     }
     
-    // Sets up how the screen looks and feels: color, border, paging etc.
+    // Sets up the basic features of the screen that only need to be done once at the beginning, including creating the
+    // back button that is used to return from full screen. The border, background color, and scroll view set up are
+    // completed and then all subviews are added to the super view.
     
     func setUpVisual() {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.addSubview(self.loadingScreen)
         
-        self.clipsToBounds = true
         self.layer.borderWidth = 5
         self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
+        self.clipsToBounds = true
         self.isPagingEnabled = true
         self.delegate = self
         self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
@@ -59,7 +61,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     @objc func fullscreen(sender: UIButton){
         if (!isLoading){
             isFullscreen = !isFullscreen
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.4) {
                 if (self.isFullscreen){
                     self.layer.cornerRadius = 0
                     self.layer.borderWidth = 0

@@ -13,7 +13,7 @@ class PKMStatisticView: UIScrollView {
     
     // Called when a user has clicked on a Pokemon tile to access more information. A picture is displayed, along with a
     // caption stating the pokemon's index number, it's height, and weight. Statistics are provided in the statistics view,
-    // these include the pokemon's abilities, types, and moves.
+    // these include the pokemon's abilities, types, and moves. 
     
     let statistics = UITextView()
     let pokemon: PKMPokemon

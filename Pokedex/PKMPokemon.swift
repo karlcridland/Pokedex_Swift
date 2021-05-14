@@ -12,7 +12,7 @@ import UIKit
 extension PKMPokemon{
     
     // Images for pokemon are stored in a static array in the PokedexView, if they aren't present then they're downloaded
-    // via the information stored in the pokemons sprites.
+    // via the information stored in the pokemons sprites. 
     
     func displayImage(_ picture: UIImageView){
         if let image = PokedexView.images[self.id!]{
