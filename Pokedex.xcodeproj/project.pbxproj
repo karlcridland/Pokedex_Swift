@@ -111,15 +111,23 @@
 				6D874089264E6C700098323B /* PKMPokemon.swift */,
 				6D48ACB1264F0312009AA0A6 /* PKMSearchView.swift */,
 				6D48ACB3264F031D009AA0A6 /* PKMStatisticView.swift */,
-				6D48ACAD264EF2B1009AA0A6 /* UIImageView.swift */,
-				6D48ACAF264EF7B0009AA0A6 /* UIView.swift */,
-				6DE6B853264FFBC200994ABB /* Array.swift */,
+				6DE6B857265009A500994ABB /* Extensions */,
 				6D87407B264E6B4C0098323B /* Main.storyboard */,
 				6D87407E264E6B510098323B /* Assets.xcassets */,
 				6D874080264E6B510098323B /* LaunchScreen.storyboard */,
 				6D874083264E6B510098323B /* Info.plist */,
 			);
 			path = Pokedex;
+			sourceTree = "<group>";
+		};
+		6DE6B857265009A500994ABB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6DE6B853264FFBC200994ABB /* Array.swift */,
+				6D48ACAD264EF2B1009AA0A6 /* UIImageView.swift */,
+				6D48ACAF264EF7B0009AA0A6 /* UIView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9D07D44D692655588045AC66 /* Frameworks */ = {
@@ -414,7 +422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = karlcridland.Pokedex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -435,7 +443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = karlcridland.Pokedex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
