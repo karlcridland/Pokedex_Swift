@@ -114,23 +114,33 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
-        filteredPokemon().enumerated().forEach { (i, pokemon) in
-            let length = self.frame.width/2
-            let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/4)+(i%2)))+10, y: (length*CGFloat((i/2)%2))+10, width: length-20, height: length-20))
-            self.addSubview(display)
-            self.contentSize = CGSize(width: display.frame.maxX+10, height: self.frame.height)
-            display.transform = CGAffineTransform(translationX: [5,-5,5,-5][i%4], y: [5,5,-5,-5][i%4])
-            display.alpha = 0
-            UIView.animate(withDuration: 0.3) {
-                display.alpha = 1
+        var i = 0
+        filteredPokemon().forEach { pokemon in
+            var proceed = true
+            if let typeFilters = pokedex?.typeFilter.searchFilters{
+                if typeFilters.count > 0 && !pokemon.hasType(typeFilters){
+                    pokedex?.clear.isHidden = false
+                    proceed = false
+                }
             }
+            if (proceed){
+                let length = self.frame.width/2
+                let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/4)+(i%2)))+10, y: (length*CGFloat((i/2)%2))+10, width: length-20, height: length-20))
+                self.addSubview(display)
+                display.transform = CGAffineTransform(translationX: [5,-5,5,-5][i%4], y: [5,5,-5,-5][i%4])
+                display.alpha = 0
+                UIView.animate(withDuration: 0.3) {
+                    display.alpha = 1
+                }
 
-            let button = PKMButton(frame: CGRect(x: 0, y: 0, width: display.frame.width, height: self.frame.height), pokemon: pokemon)
-            display.addSubview(button)
-            button.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
+                let button = PKMButton(frame: CGRect(x: 0, y: 0, width: display.frame.width, height: self.frame.height), pokemon: pokemon)
+                display.addSubview(button)
+                button.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
+                i += 1
+            }
             
+            self.contentSize = CGSize(width: CGFloat((i+3)/4)*self.frame.width, height: self.frame.height)
         }
-        
     }
     
     // Returns all the pokemon that fit the criterea a user has inputted.

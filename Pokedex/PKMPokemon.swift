@@ -60,6 +60,21 @@ extension PKMPokemon{
         }
     }
     
+    // Method takes a string array input and returns a boolean value based on whether the pokemon has one of every type
+    // contained in the array.
+    
+    func hasType(_ types: [String]) -> Bool {
+        var typeCount = 0
+        self.types?.forEach { type in
+            if let name = type.type?.name{
+                if types.contains(name){
+                    typeCount += 1
+                }
+            }
+        }
+        return typeCount == types.count
+    }
+    
     // Takes the value of the pokemons primary type and assigns a color based on the value, is used for the background of
     // the statistics view.
     

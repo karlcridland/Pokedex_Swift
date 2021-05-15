@@ -53,12 +53,7 @@ class ViewController: UIViewController {
                         queue.async {
                             DispatchQueue.main.async {
                                 if (pokedex.pokemon.count == cap){
-                                    if let pokedex = self.pokedex{
-                                        pokedex.screen.loadingScreen.update(nil)
-                                        pokedex.screen.isLoading = false
-                                        pokedex.pokemon = pokedex.pokemon.sorted(by: {$0.id! < $1.id!})
-                                        pokedex.screen.displayPokemon()
-                                    }
+                                    self.onFinishDownload()
                                 }
                                 else{
                                     pokedex.screen.loadingScreen.update(CGFloat(pokedex.pokemon.count)*100/CGFloat(152))
@@ -73,6 +68,20 @@ class ViewController: UIViewController {
                     
                 }
             }
+        }
+    }
+    
+    // When all pokemon have been added to the array, this function is called, prompting the loading screen to be removed
+    // and for the pokemon to be sorted and displayed.
+    
+    func onFinishDownload(){
+        
+        if let pokedex = self.pokedex{
+            pokedex.typeFilter.updateValues(PokedexView.filterTypes["type"])
+            pokedex.screen.loadingScreen.update(nil)
+            pokedex.screen.isLoading = false
+            pokedex.pokemon = pokedex.pokemon.sorted(by: {$0.id! < $1.id!})
+            pokedex.screen.displayPokemon()
         }
     }
     

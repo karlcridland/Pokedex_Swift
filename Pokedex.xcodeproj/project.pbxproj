@@ -10,8 +10,8 @@
 		37DC4A19D081A1E488374402 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDDEA4C4B26E98CD0490011 /* Pods_Pokedex.framework */; };
 		6D48ACA4264E89FF009AA0A6 /* PokedexScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA3264E89FF009AA0A6 /* PokedexScreen.swift */; };
 		6D48ACA6264E98C3009AA0A6 /* PokedexLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA5264E98C3009AA0A6 /* PokedexLoading.swift */; };
-		6D48ACA8264EA10D009AA0A6 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA7264EA10D009AA0A6 /* FilterButton.swift */; };
-		6D48ACAA264EA1D0009AA0A6 /* PokedexFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA9264EA1D0009AA0A6 /* PokedexFilters.swift */; };
+		6D48ACA8264EA10D009AA0A6 /* PKMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA7264EA10D009AA0A6 /* PKMFilterButton.swift */; };
+		6D48ACAA264EA1D0009AA0A6 /* PKMFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACA9264EA1D0009AA0A6 /* PKMFilterView.swift */; };
 		6D48ACAE264EF2B1009AA0A6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACAD264EF2B1009AA0A6 /* UIImageView.swift */; };
 		6D48ACB0264EF7B0009AA0A6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACAF264EF7B0009AA0A6 /* UIView.swift */; };
 		6D48ACB2264F0312009AA0A6 /* PKMSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48ACB1264F0312009AA0A6 /* PKMSearchView.swift */; };
@@ -30,8 +30,8 @@
 		4BDDEA4C4B26E98CD0490011 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D48ACA3264E89FF009AA0A6 /* PokedexScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexScreen.swift; sourceTree = "<group>"; };
 		6D48ACA5264E98C3009AA0A6 /* PokedexLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexLoading.swift; sourceTree = "<group>"; };
-		6D48ACA7264EA10D009AA0A6 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
-		6D48ACA9264EA1D0009AA0A6 /* PokedexFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexFilters.swift; sourceTree = "<group>"; };
+		6D48ACA7264EA10D009AA0A6 /* PKMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKMFilterButton.swift; sourceTree = "<group>"; };
+		6D48ACA9264EA1D0009AA0A6 /* PKMFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKMFilterView.swift; sourceTree = "<group>"; };
 		6D48ACAD264EF2B1009AA0A6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		6D48ACAF264EF7B0009AA0A6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6D48ACB1264F0312009AA0A6 /* PKMSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKMSearchView.swift; sourceTree = "<group>"; };
@@ -97,8 +97,8 @@
 				6D874079264E6B4C0098323B /* ViewController.swift */,
 				6D87408B264E6D300098323B /* PokedexView.swift */,
 				6D48ACA3264E89FF009AA0A6 /* PokedexScreen.swift */,
-				6D48ACA9264EA1D0009AA0A6 /* PokedexFilters.swift */,
-				6D48ACA7264EA10D009AA0A6 /* FilterButton.swift */,
+				6D48ACA9264EA1D0009AA0A6 /* PKMFilterView.swift */,
+				6D48ACA7264EA10D009AA0A6 /* PKMFilterButton.swift */,
 				6D48ACA5264E98C3009AA0A6 /* PokedexLoading.swift */,
 				6D874089264E6C700098323B /* PKMPokemon.swift */,
 				6D48ACB1264F0312009AA0A6 /* PKMSearchView.swift */,
@@ -242,12 +242,12 @@
 				6D48ACA4264E89FF009AA0A6 /* PokedexScreen.swift in Sources */,
 				6D87408C264E6D300098323B /* PokedexView.swift in Sources */,
 				6D874076264E6B4C0098323B /* AppDelegate.swift in Sources */,
-				6D48ACAA264EA1D0009AA0A6 /* PokedexFilters.swift in Sources */,
+				6D48ACAA264EA1D0009AA0A6 /* PKMFilterView.swift in Sources */,
 				6D48ACAE264EF2B1009AA0A6 /* UIImageView.swift in Sources */,
 				6D48ACA6264E98C3009AA0A6 /* PokedexLoading.swift in Sources */,
 				6D48ACB4264F031D009AA0A6 /* PKMStatisticView.swift in Sources */,
 				6D874078264E6B4C0098323B /* SceneDelegate.swift in Sources */,
-				6D48ACA8264EA10D009AA0A6 /* FilterButton.swift in Sources */,
+				6D48ACA8264EA10D009AA0A6 /* PKMFilterButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Gotta Catch 'em All!">
                                         <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="NSColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="28" name="Verdana-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -30,7 +30,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" systemColor="systemYellowColor"/>
-                                <size key="shadowOffset" width="2" height="2"/>
+                                <size key="shadowOffset" width="2" height="1"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
