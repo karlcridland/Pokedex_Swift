@@ -25,7 +25,7 @@ class PKMFilterButton: UIButton {
         self.layer.cornerRadius = 4
     }
     
-    // When clicked the isClicked value will change and the background / color of the button reflects the value.
+    // When clicked the isClicked value will change and the background / color of the button reflects the value. 
     
     @objc func click(){
         self.isClicked = !self.isClicked

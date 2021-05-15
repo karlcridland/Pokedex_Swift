@@ -30,7 +30,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     
     // Sets up the basic features of the screen that only need to be done once at the beginning, including creating the
     // back button that is used to return from full screen. The border, background color, and scroll view set up are
-    // completed and then all subviews are added to the super view.
+    // completed and then all subviews are added to the super view. 
     
     func setUpVisual() {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
