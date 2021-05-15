@@ -37,6 +37,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.addSubview(self.loadingScreen)
         
         self.layer.borderWidth = 5
+        self.layer.cornerRadius = 5
         self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.clipsToBounds = true
         self.isPagingEnabled = true
@@ -156,7 +157,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
                     results.append(pokemon)
                 }
             }
-            pokedex.clear.isHidden = typeFilters.count == 0
+            pokedex.clear.isHidden = typeFilters.count == 0 && pokedex.searchBar.input.text!.count == 0
         }
         
         var typesRemaining = [String]()

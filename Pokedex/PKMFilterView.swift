@@ -17,15 +17,18 @@ class PKMFilterView: UIView {
     
     init(frame: CGRect, screen: PokedexScreen, title: String) {
         self.screen = screen
-        self.scroll = UIScrollView(frame: CGRect(x: 0, y: 20, width: frame.width, height: frame.height-20))
+        self.scroll = UIScrollView(frame: CGRect(x: 5, y: 25, width: frame.width-10, height: frame.height-30))
         super .init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.4)
+        self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 5
+        self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.alpha = 0
         
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: 200, height: 30))
         label.text = title
         label.font = UIFont(name: "Verdana Bold", size: 15)
-        label.textColor = .white
+        label.textColor = .black
         self.addSubview(label)
         
         self.addSubview(self.scroll)
@@ -52,11 +55,11 @@ class PKMFilterView: UIView {
         if let values = types{
             var previous: PKMFilterButton?
             values.sorted().forEach { value in
-                let button = PKMFilterButton(frame: CGRect(x: 10+(previous?.frame.maxX ?? 0), y: 10, width: 100, height: scroll.frame.height-20), title: value)
+                let button = PKMFilterButton(frame: CGRect(x: 10+(previous?.frame.maxX ?? 5), y: 10, width: 100, height: scroll.frame.height-20), title: value)
                 previous = button
                 buttons.append(button)
                 scroll.addSubview(button)
-                scroll.contentSize = CGSize(width: (previous?.frame.maxX)!+10, height: scroll.frame.height)
+                scroll.contentSize = CGSize(width: (previous?.frame.maxX)!+15, height: scroll.frame.height)
                 button.addTarget(self, action: #selector(updateResults), for: .touchUpInside)
                 
                 if (searchFilters.contains(value)){
