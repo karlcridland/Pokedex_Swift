@@ -15,7 +15,7 @@ class PKMStatisticView: UIScrollView {
     // caption stating the pokemon's index number, it's height, and weight. Statistics are provided in the statistics view,
     // these include the pokemon's abilities, types, and moves. 
     
-    let statistics = UITextView()
+    let statistics = UIView()
     let pokemon: PKMPokemon
     
     init(frame: CGRect, pokemon: PKMPokemon) {
@@ -63,21 +63,21 @@ class PKMStatisticView: UIScrollView {
         statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: self.frame.height-293)
         statistics.layer.cornerRadius = 8
         statistics.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
-        statistics.font = UIFont(name: "Verdana Bold", size: 16)
-        statistics.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+//        statistics.font = UIFont(name: "Verdana Bold", size: 16)
+//        statistics.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         self.addSubview(statistics)
         
-        var text = ""
-        let values = ["types":pokemon.types as Any,"abilities":pokemon.abilities as Any,"moves":pokemon.moves as Any]
-            
-        ["types","abilities","moves"].forEach { key in
-            let values = values[key]!
-            text += "\(key): \(sortStatistics(values).joined(separator: ", "))\n\n"
-        }
-        statistics.text = text
-        if (statistics.contentSize.height < statistics.frame.height){
-            statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: statistics.contentSize.height)
-        }
+//        var text = [String]()
+//        let values = ["types":pokemon.types as Any,"abilities":pokemon.abilities as Any,"moves":pokemon.moves as Any]
+//
+//        ["types","abilities","moves"].forEach { key in
+//            let values = values[key]!
+//            text.append("\(key): \(sortStatistics(values).joined(separator: ", "))")
+//        }
+//        statistics.text = text.joined(separator: "\n\n")
+//        if (statistics.contentSize.height < statistics.frame.height){
+//            statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: statistics.contentSize.height)
+//        }
     }
     
     private func sortStatistics(_ input: Any) -> [String]{

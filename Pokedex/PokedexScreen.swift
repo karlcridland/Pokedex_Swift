@@ -18,7 +18,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     
     var isLoading = true
     var loadingScreen: PokedexLoading
-    let back = UIButton(frame: CGRect(x: 20, y: 20, width: 80, height: 40))
+    let back = UIButton(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
     let pokemonTitle = UILabel(frame: CGRect(x: 100, y: 20, width: UIScreen.main.bounds.width-120, height: 40))
     
     override init(frame: CGRect) {
@@ -43,11 +43,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.delegate = self
         self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
         
-        self.back.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.9)
-        self.back.setTitle("back", for: .normal)
-        self.back.setTitleColor(#colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1), for: .normal)
-        self.back.titleLabel!.font = UIFont(name: "Verdana Bold", size: 18)
-        self.back.layer.cornerRadius = 4
+        self.back.setImage(UIImage(named: "cross"), for: .normal)
         self.back.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
         
         self.pokemonTitle.font = UIFont(name: "Verdana Bold", size: 29)

@@ -1,6 +1,6 @@
 //
 //  PokedexView.swift
-//  PokedexView
+//  Pokedex
 //
 //  Created by Karl Cridland on 14/05/2021.
 //

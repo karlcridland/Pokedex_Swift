@@ -67,39 +67,39 @@ extension PKMPokemon{
         if let type = self.types?[0].type?.name{
             switch type{
             case "grass":
-                return #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+                return #colorLiteral(red: 0.4709587097, green: 0.7843752503, blue: 0.3112200797, alpha: 1)
             case "fire":
-                return #colorLiteral(red: 1, green: 0.4333972633, blue: 0.2972377241, alpha: 1)
+                return #colorLiteral(red: 0.9419586062, green: 0.5017336607, blue: 0.18946594, alpha: 1)
             case "water":
-                return #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                return #colorLiteral(red: 0.4065409303, green: 0.5657317042, blue: 0.9404949546, alpha: 1)
             case "poison":
-                return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+                return #colorLiteral(red: 0.6255689263, green: 0.2507198453, blue: 0.6256545186, alpha: 1)
             case "flying":
-                return #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+                return #colorLiteral(red: 0.6607093811, green: 0.5659486651, blue: 0.9423440099, alpha: 1)
             case "bug":
-                return #colorLiteral(red: 0.4500938654, green: 0.9813225865, blue: 0.4743030667, alpha: 1)
+                return #colorLiteral(red: 0.657341063, green: 0.7198609114, blue: 0.1260197163, alpha: 1)
             case "normal":
-                return #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+                return #colorLiteral(red: 0.6581626534, green: 0.6569408774, blue: 0.4694973826, alpha: 1)
             case "fairy":
-                return #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+                return #colorLiteral(red: 0.9325317144, green: 0.6000199914, blue: 0.6738457084, alpha: 1)
             case "ground":
-                return #colorLiteral(red: 0.9373354316, green: 0.8812893033, blue: 0.7283872962, alpha: 1)
+                return #colorLiteral(red: 0.8777050972, green: 0.7516915202, blue: 0.409412086, alpha: 1)
             case "electric":
-                return #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+                return #colorLiteral(red: 0.9722433686, green: 0.8145003915, blue: 0.188670367, alpha: 1)
             case "fighting":
-                return #colorLiteral(red: 0.726337254, green: 0.471688211, blue: 0.2060503662, alpha: 1)
+                return #colorLiteral(red: 0.7517740726, green: 0.1868347824, blue: 0.1582125127, alpha: 1)
             case "psychic":
-                return #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+                return #colorLiteral(red: 0.9717376828, green: 0.3461799026, blue: 0.5320883989, alpha: 1)
             case "rock":
-                return #colorLiteral(red: 0.5787474513, green: 0.3215198815, blue: 0, alpha: 1)
+                return #colorLiteral(red: 0.7194501758, green: 0.6275401711, blue: 0.2218468487, alpha: 1)
             case "steel":
-                return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                return #colorLiteral(red: 0.7224847078, green: 0.7201544642, blue: 0.8156841993, alpha: 1)
             case "ice":
-                return #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                return #colorLiteral(red: 0.5941720605, green: 0.8459342122, blue: 0.8466081619, alpha: 1)
             case "ghost":
-                return #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+                return #colorLiteral(red: 0.439637363, green: 0.3445366025, blue: 0.5964408517, alpha: 1)
             case "dragon":
-                return #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+                return #colorLiteral(red: 0.4384397268, green: 0.2216467261, blue: 0.9738909602, alpha: 1)
             default:
                 return nil
             }
