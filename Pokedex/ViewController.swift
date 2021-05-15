@@ -16,8 +16,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
+        ViewController.changeTheme(.dark)
+    }
+    
+    static func changeTheme(_ style: UIUserInterfaceStyle){
         UIApplication.shared.windows.forEach { window in
-            window.overrideUserInterfaceStyle = .dark
+            window.overrideUserInterfaceStyle = style
         }
     }
     
@@ -82,6 +86,10 @@ class ViewController: UIViewController {
             pokedex.screen.isLoading = false
             pokedex.pokemon = pokedex.pokemon.sorted(by: {$0.id! < $1.id!})
             pokedex.screen.displayPokemon()
+            pokedex.search.isHidden = false
+            
+            self.view.addSubview(pokedex.cover)
+            self.view.addSubview(pokedex.searchBar)
         }
     }
     

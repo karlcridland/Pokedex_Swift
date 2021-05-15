@@ -75,6 +75,18 @@ extension PKMPokemon{
         return typeCount == types.count
     }
     
+    // Method returns a string array containing a pokemons type attributes.
+    
+    func allTypes() -> [String] {
+        var temp = [String]()
+        self.types?.forEach { type in
+            if let name = type.type?.name{
+                temp.append(name)
+            }
+        }
+        return temp
+    }
+    
     // Takes the value of the pokemons primary type and assigns a color based on the value, is used for the background of
     // the statistics view.
     

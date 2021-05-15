@@ -116,28 +116,19 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         }
         var i = 0
         filteredPokemon().forEach { pokemon in
-            var proceed = true
-            if let typeFilters = pokedex?.typeFilter.searchFilters{
-                if typeFilters.count > 0 && !pokemon.hasType(typeFilters){
-                    pokedex?.clear.isHidden = false
-                    proceed = false
-                }
+            let length = self.frame.width/2
+            let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/4)+(i%2)))+10, y: (length*CGFloat((i/2)%2))+10, width: length-20, height: length-20))
+            self.addSubview(display)
+            display.transform = CGAffineTransform(translationX: [5,-5,5,-5][i%4], y: [5,5,-5,-5][i%4])
+            display.alpha = 0
+            UIView.animate(withDuration: 0.3) {
+                display.alpha = 1
             }
-            if (proceed){
-                let length = self.frame.width/2
-                let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/4)+(i%2)))+10, y: (length*CGFloat((i/2)%2))+10, width: length-20, height: length-20))
-                self.addSubview(display)
-                display.transform = CGAffineTransform(translationX: [5,-5,5,-5][i%4], y: [5,5,-5,-5][i%4])
-                display.alpha = 0
-                UIView.animate(withDuration: 0.3) {
-                    display.alpha = 1
-                }
 
-                let button = PKMButton(frame: CGRect(x: 0, y: 0, width: display.frame.width, height: self.frame.height), pokemon: pokemon)
-                display.addSubview(button)
-                button.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
-                i += 1
-            }
+            let button = PKMButton(frame: CGRect(x: 0, y: 0, width: display.frame.width, height: self.frame.height), pokemon: pokemon)
+            display.addSubview(button)
+            button.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
+            i += 1
             
             self.contentSize = CGSize(width: CGFloat((i+3)/4)*self.frame.width, height: self.frame.height)
         }
@@ -146,27 +137,39 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     // Returns all the pokemon that fit the criterea a user has inputted.
     
     func filteredPokemon() -> [PKMPokemon] {
-        var result = [PKMPokemon]()
+        
+        var results = [PKMPokemon]()
+        
         if let pokedex = self.pokedex{
+            let typeFilters = pokedex.typeFilter.searchFilters
             pokedex.pokemon.forEach { pokemon in
-                result.append(pokemon)
+                var proceed = true
+                if typeFilters.count > 0 && !pokemon.hasType(typeFilters){
+                    proceed = false
+                }
+                if let search = pokedex.searchBar.input.text, proceed == true{
+                    if (search.count > 0){
+                        proceed = pokemon.name!.lowercased().contains(search.lowercased())
+                    }
+                }
+                if (proceed){
+                    results.append(pokemon)
+                }
+            }
+            pokedex.clear.isHidden = typeFilters.count == 0
+        }
+        
+        var typesRemaining = [String]()
+        results.forEach { result in
+            result.allTypes().forEach { type in
+                typesRemaining.append(type)
             }
         }
-        return result
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-// Button stores a value of type PKMPokemon, used for the tile pieces a user clicks on in the screen scroll view.
-
-class PKMButton: UIButton{
-    let pokemon: PKMPokemon
-    init(frame: CGRect, pokemon: PKMPokemon) {
-        self.pokemon = pokemon
-        super .init(frame: frame)
+        if let unique = typesRemaining.removeDuplicates(){
+            pokedex?.typeFilter.updateValues(unique)
+        }
+        
+        return results
     }
     
     required init?(coder: NSCoder) {

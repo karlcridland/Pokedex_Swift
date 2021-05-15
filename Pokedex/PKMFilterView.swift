@@ -36,11 +36,20 @@ class PKMFilterView: UIView {
     
     func updateValues(_ values: [String]?) {
         
+        scroll.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
+        
         UIView.animate(withDuration: 0.2) {
             self.alpha = 1
         }
         
-        if let values = values{
+        var types = values
+        if (values?.count == 0){
+            types = PokedexView.filterTypes["type"]
+        }
+        
+        if let values = types{
             var previous: PKMFilterButton?
             values.sorted().forEach { value in
                 let button = PKMFilterButton(frame: CGRect(x: 10+(previous?.frame.maxX ?? 0), y: 10, width: 100, height: scroll.frame.height-20), title: value)
@@ -49,6 +58,12 @@ class PKMFilterView: UIView {
                 scroll.addSubview(button)
                 scroll.contentSize = CGSize(width: (previous?.frame.maxX)!+10, height: scroll.frame.height)
                 button.addTarget(self, action: #selector(updateResults), for: .touchUpInside)
+                
+                if (searchFilters.contains(value)){
+                    button.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+                    button.click()
+                }
+                
             }
         }
     }
@@ -57,6 +72,9 @@ class PKMFilterView: UIView {
     // filtered results is called. Method creates a targetable method for button clicks.
     
     @objc func updateResults(sender: PKMFilterButton) {
+        scroll.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
         if (sender.isClicked){
             searchFilters.append(sender.title)
         }
@@ -70,12 +88,13 @@ class PKMFilterView: UIView {
     // all pokemon are showing again.
     
     func reset() {
-        buttons.forEach { button in
+        self.buttons.forEach { button in
             button.isClicked = true
             button.click()
         }
-        searchFilters.removeAll()
-        screen.displayPokemon()
+        self.searchFilters.removeAll()
+        self.updateValues(PokedexView.filterTypes["type"]!)
+        self.screen.displayPokemon()
     }
     
     required init?(coder: NSCoder) {
