@@ -1,5 +1,5 @@
 # Pokedex_iOS
-Allows a user to search a list of Pokemon and see their statistics.
+Allows a user to search a list of Pokemon (through String input or type selection) and see their statistics.
 
 # Podfiles
 
@@ -15,5 +15,6 @@ end
 pod install
 ```
 
+# Project status
 
-#
+Working version has been produced at 1.2
