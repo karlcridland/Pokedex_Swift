@@ -2,6 +2,15 @@
 Allows a user to search a list of Pokemon and see their statistics.
 
 # Podfiles
-PokemonAPI
+
+target 'Pokedex' do
+  use_frameworks!
+pod 'PokemonAPI' 
+end
+
+```bash
+pod install
+```
+
 
 #
