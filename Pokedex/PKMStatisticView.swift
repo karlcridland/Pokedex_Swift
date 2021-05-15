@@ -11,9 +11,8 @@ import PokemonAPI
 
 class PKMStatisticView: UIScrollView {
     
-    // Called when a user has clicked on a Pokemon tile to access more information. A picture is displayed, along with a
-    // caption stating the pokemon's index number, it's height, and weight. Statistics are provided in the statistics view,
-    // these include the pokemon's abilities, types, and moves. 
+    // Called when a user has clicked on a Pokemon tile to access more information about a specific pokemon, this view is
+    // displayed in full screen.
     
     let statistics = UIView()
     let pokemon: PKMPokemon
@@ -25,6 +24,8 @@ class PKMStatisticView: UIScrollView {
         self.setUpPicture()
         self.setUpStatistics()
     }
+    
+    // A picture is displayed, along with a caption stating the pokemon's index number, it's height, and weight.
     
     private func setUpPicture() {
         let picture = UIImageView(frame: CGRect(x: 20, y: 10, width: frame.width-40, height: 200))
@@ -59,34 +60,72 @@ class PKMStatisticView: UIScrollView {
         }
     }
     
+    // Statistics are provided in the statistics view, these include the pokemon's abilities, types, and moves. A
+    // UISegmentedControl is implemented so the user can navigate between them. If the segments appear further than
+    // the bounds of the screen then the content size is adjusted to reflect this allowing the user to scroll.
+    
     private func setUpStatistics(){
-        statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: self.frame.height-293)
-        statistics.layer.cornerRadius = 8
-        statistics.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
-//        statistics.font = UIFont(name: "Verdana Bold", size: 16)
-//        statistics.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        
+        self.statistics.frame = CGRect(x: 20, y: 313, width: frame.width-40, height: self.frame.height-353)
         self.addSubview(statistics)
         
-//        var text = [String]()
-//        let values = ["types":pokemon.types as Any,"abilities":pokemon.abilities as Any,"moves":pokemon.moves as Any]
-//
-//        ["types","abilities","moves"].forEach { key in
-//            let values = values[key]!
-//            text.append("\(key): \(sortStatistics(values).joined(separator: ", "))")
-//        }
-//        statistics.text = text.joined(separator: "\n\n")
-//        if (statistics.contentSize.height < statistics.frame.height){
-//            statistics.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: statistics.contentSize.height)
-//        }
+        let segments = UISegmentedControl(items: ["types","abilities","moves"])
+        segments.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: 40)
+        segments.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
+        self.addSubview(segments)
+        segments.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Verdana Bold", size: 16)!], for: UIControl.State.normal)
+        segments.addTarget(self, action: #selector(segmenterClicked), for: .valueChanged)
+        segments.selectedSegmentIndex = 0
+        self.segmenterClicked(segments)
+        
     }
     
-    private func sortStatistics(_ input: Any) -> [String]{
+    // When the segmenter is clicked, all subviews from the statistics view are remvoved, and a value taken using the
+    // segments selected index from the data array are used.
+    
+    @objc func segmenterClicked(_ sender: UISegmentedControl){
+        if sender.userActivity?.activityType != .none{
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
+        self.statistics.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
+        
+        let data = [pokemon.types! as [Any],pokemon.abilities! as [Any],pokemon.moves! as [Any]]
+        let values = self.retrieveStatistics(data[sender.selectedSegmentIndex])
+        values.enumerated().forEach { (i,value) in
+            let background = UIView(frame: CGRect(x: 0, y: CGFloat(i)*60, width: self.statistics.frame.width, height: 50))
+            background.layer.cornerRadius = 8
+            background.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
+            background.layer.borderWidth = 2
+            background.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4).cgColor
+            statistics.addSubview(background)
+            
+            let label = UILabel(frame: CGRect(x: 20, y: 0, width: background.frame.width-40, height: 50))
+            label.text = value
+            background.addSubview(label)
+            label.font = UIFont(name: "Verdana Bold", size: 15)
+            
+            self.statistics.frame = CGRect(x: self.statistics.frame.minX, y: self.statistics.frame.minY, width: self.statistics.frame.width, height: background.frame.maxY+20)
+            self.contentSize = CGSize(width: self.frame.width, height: self.statistics.frame.maxY)
+            
+        }
+        
+    }
+    
+    // Sorts the data into a string array based on the statistics type.
+    //
+    // !! PKMNamedAPIResource shared type may be a way to make the code cleaner ??
+    
+    private func retrieveStatistics(_ input: Any) -> [String]{
         var stats = [String]()
         
         switch input{
         case is [PKMPokemonType]:
+        
             (input as! [PKMPokemonType]).forEach { stat in
                 if let name = stat.type?.name{
+                    
                     stats.append(name)
                 }
             }

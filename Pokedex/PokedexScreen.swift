@@ -18,8 +18,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     
     var isLoading = true
     var loadingScreen: PokedexLoading
-    let back = UIButton(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
-    let pokemonTitle = UILabel(frame: CGRect(x: 100, y: 20, width: UIScreen.main.bounds.width-120, height: 40))
+    let back = UIButton(frame: CGRect(x: UIScreen.main.bounds.width-60, y: 20, width: 40, height: 40))
+    let pokemonTitle = UILabel(frame: CGRect(x: 20, y: 20, width: UIScreen.main.bounds.width-120, height: 40))
     
     override init(frame: CGRect) {
         self.originalFrame = frame
@@ -48,7 +48,6 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         
         self.pokemonTitle.font = UIFont(name: "Verdana Bold", size: 29)
         self.pokemonTitle.textColor = .black
-        self.pokemonTitle.textAlignment = .right
     }
     
     // Toggles the screen to fit the size of the window, this is used in cases where the user needs to display extended information
