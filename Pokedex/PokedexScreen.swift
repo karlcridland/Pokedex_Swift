@@ -89,9 +89,9 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    // Brings up an individual pokemons statistics, before displaying the page, all current views are removed from the page by
-    // fading out of view. The content offset is placed to coordinates (0, 0) as the statistics view is being placed on a
-    // scroll view that could be at varying x coordinates.
+    // Brings up an individual pokemons statistics, before displaying the page, all current views are removed from the
+    // page by fading out of view. The content offset is placed to coordinates (0, 0) as the statistics view is being
+    // placed on a scroll view that could be at varying x coordinates.
     
     func displayPokemonStatistics(_ pokemon: PKMPokemon) {
         self.subviews.forEach { subview in
