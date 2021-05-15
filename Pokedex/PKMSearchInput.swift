@@ -28,6 +28,7 @@ class PKMSearchInput: UIView, UITextFieldDelegate {
         self.input.delegate = self
         self.input.returnKeyType = .done
         self.input.autocorrectionType = .no
+        self.clipsToBounds = true
         
         let clear = UIButton(frame: CGRect(x: self.frame.width-50, y: self.input.frame.minY+10, width: 30, height: 30))
         clear.addTarget(self, action: #selector(clearInput), for: .touchUpInside)

@@ -36,13 +36,11 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.addSubview(self.loadingScreen)
         
-        self.layer.borderWidth = 5
         self.layer.cornerRadius = 5
-        self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.clipsToBounds = true
         self.isPagingEnabled = true
         self.delegate = self
-        self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
+        self.backgroundColor = .white
         
         self.back.setImage(UIImage(named: "cross"), for: .normal)
         self.back.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
@@ -60,7 +58,6 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
             UIView.animate(withDuration: 0.4) {
                 if (self.isFullscreen){
                     self.layer.cornerRadius = 0
-                    self.layer.borderWidth = 0
                     if let superview = self.superview{
                         self.frame = CGRect(x: 0, y: 0, width: superview.frame.width, height: superview.frame.height)
                     }
@@ -71,9 +68,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
                 }
                 else{
                     self.layer.cornerRadius = 5
-                    self.layer.borderWidth = 5
                     self.frame = self.originalFrame
-                    self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
+                    self.backgroundColor = .white
                     self.displayPokemon()
                 }
             }
