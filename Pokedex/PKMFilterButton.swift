@@ -18,7 +18,7 @@ class PKMFilterButton: UIButton {
         super .init(frame: frame)
         
         self.setTitle(title, for: .normal)
-        self.titleLabel?.font = UIFont(name: "Verdana Bold", size: 18)
+        self.titleLabel?.font = UIFont(name: "Verdana Bold", size: 16)
         self.addTarget(self, action: #selector(click), for: .touchUpInside)
         
         self.backgroundColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
