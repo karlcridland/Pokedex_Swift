@@ -14,7 +14,7 @@ class PokedexView: UIScrollView {
     // Provides the main function for the app, all subviews can be found within the PokedexView, contains the screen
     // variable where a user can swipe through pokemon to choose to view statistics on. When clicked, the screen
     // expands to full size showing the pokemons statistics. The filters variable contains the views which a user
-    // interacts with to place a pokemon filter on the screen, narrowing a search result.
+    // interacts with to place a pokemon filter on the screen, narrowing a search result. 
     
     var pokemon = [PKMPokemon]()
     let screen: PokedexScreen
