@@ -3,6 +3,10 @@ Allows a user to search a list of Pokemon (through String input or type selectio
 
 # Podfiles & Installation
 
+```bash
+pod init
+```
+
 ```ruby
 target 'Pokedex' do
   use_frameworks!
