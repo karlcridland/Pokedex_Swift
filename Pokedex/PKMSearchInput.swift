@@ -13,6 +13,8 @@ class PKMSearchInput: UIView, UITextFieldDelegate {
     let input: TextField
     var pokedex: PokedexView?
     
+    // Dropdown provides the user the ability to search for a pokemon via a string input. 
+    
     override init(frame: CGRect) {
         self.input = TextField(frame: CGRect(x: 20, y: frame.height-65, width: frame.width-40, height: 50))
         super .init(frame: frame)
@@ -26,6 +28,7 @@ class PKMSearchInput: UIView, UITextFieldDelegate {
         self.input.delegate = self
         self.input.returnKeyType = .done
         self.input.autocorrectionType = .no
+        self.clipsToBounds = true
         
         let clear = UIButton(frame: CGRect(x: self.frame.width-50, y: self.input.frame.minY+10, width: 30, height: 30))
         clear.addTarget(self, action: #selector(clearInput), for: .touchUpInside)

@@ -87,6 +87,7 @@ class ViewController: UIViewController {
             pokedex.pokemon = pokedex.pokemon.sorted(by: {$0.id! < $1.id!})
             pokedex.screen.displayPokemon()
             pokedex.search.isHidden = false
+            pokedex.filter.isHidden = false
             
             self.view.addSubview(pokedex.cover)
             self.view.addSubview(pokedex.searchBar)

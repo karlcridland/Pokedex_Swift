@@ -30,19 +30,17 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
     
     // Sets up the basic features of the screen that only need to be done once at the beginning, including creating the
     // back button that is used to return from full screen. The border, background color, and scroll view set up are
-    // completed and then all subviews are added to the super view.
+    // completed and then all subviews are added to the super view. 
     
     func setUpVisual() {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.addSubview(self.loadingScreen)
         
-        self.layer.borderWidth = 5
         self.layer.cornerRadius = 5
-        self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.clipsToBounds = true
         self.isPagingEnabled = true
         self.delegate = self
-        self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
+        self.backgroundColor = .white
         
         self.back.setImage(UIImage(named: "cross"), for: .normal)
         self.back.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
@@ -60,7 +58,6 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
             UIView.animate(withDuration: 0.4) {
                 if (self.isFullscreen){
                     self.layer.cornerRadius = 0
-                    self.layer.borderWidth = 0
                     if let superview = self.superview{
                         self.frame = CGRect(x: 0, y: 0, width: superview.frame.width, height: superview.frame.height)
                     }
@@ -71,9 +68,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
                 }
                 else{
                     self.layer.cornerRadius = 5
-                    self.layer.borderWidth = 5
                     self.frame = self.originalFrame
-                    self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
+                    self.backgroundColor = .white
                     self.displayPokemon()
                 }
             }
@@ -89,9 +85,9 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    // Brings up an individual pokemons statistics, before displaying the page, all current views are removed from the page by
-    // fading out of view. The content offset is placed to coordinates (0, 0) as the statistics view is being placed on a
-    // scroll view that could be at varying x coordinates.
+    // Brings up an individual pokemons statistics, before displaying the page, all current views are removed from the
+    // page by fading out of view. The content offset is placed to coordinates (0, 0) as the statistics view is being
+    // placed on a scroll view that could be at varying x coordinates.
     
     func displayPokemonStatistics(_ pokemon: PKMPokemon) {
         self.subviews.forEach { subview in

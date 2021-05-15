@@ -5,7 +5,7 @@
 //  Created by Karl Cridland on 14/05/2021.
 //
 
-import Foundation
+import Foundation 
 import UIKit
 
 class PKMFilterView: UIView {
@@ -17,12 +17,9 @@ class PKMFilterView: UIView {
     
     init(frame: CGRect, screen: PokedexScreen, title: String) {
         self.screen = screen
-        self.scroll = UIScrollView(frame: CGRect(x: 5, y: 25, width: frame.width-10, height: frame.height-30))
+        self.scroll = UIScrollView(frame: CGRect(x: 0, y: 25, width: frame.width, height: frame.height-30))
         super .init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 0.9673437476, green: 0.8995233774, blue: 0.8149551749, alpha: 1)
-        self.layer.cornerRadius = 5
-        self.layer.borderWidth = 5
-        self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
+        self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.alpha = 0
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
