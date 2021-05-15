@@ -25,7 +25,7 @@ class PKMFilterView: UIView {
         self.layer.borderColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1).withAlphaComponent(0.6).cgColor
         self.alpha = 0
         
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: 200, height: 30))
+        let label = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         label.text = title
         label.font = UIFont(name: "Verdana Bold", size: 15)
         label.textColor = .black

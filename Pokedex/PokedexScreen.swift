@@ -135,7 +135,11 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    // Returns all the pokemon that fit the criterea a user has inputted.
+    // Returns all the pokemon that fit the criterea a user has inputted. Criteria include: filtering through the type of
+    // pokemon, and the a string taken from the search input. If the pokemon meets criterea then it is added to the
+    // PKMPokemon array which is returned at the end of the function. Before the return statement, the types of the
+    // pokemon in the array of looped through and their types are sorted into an array to show all available types
+    // based on the current selection if a user would need to further narrow down a search.
     
     func filteredPokemon() -> [PKMPokemon] {
         
