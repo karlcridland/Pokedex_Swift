@@ -81,7 +81,7 @@ class PKMStatisticView: UIScrollView {
     }
     
     // When the segmenter is clicked, all subviews from the statistics view are remvoved, and a value taken using the
-    // segments selected index from the data array are used.
+    // segments selected index from the data array are used. 
     
     @objc func segmenterClicked(_ sender: UISegmentedControl){
         if sender.userActivity?.activityType != .none{
