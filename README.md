@@ -21,5 +21,5 @@ Once podfiles have been installed, use the .xcworkspace filetype.
 
 # Project status
 
-1.2 Working version has been produced.
+1.2 Working version has been produced.<br>
 1.4 Updated version with new design.
