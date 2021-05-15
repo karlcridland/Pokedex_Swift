@@ -1,7 +1,7 @@
 # Pokedex_iOS
 Allows a user to search a list of Pokemon (through String input or type selection) and see their statistics.
 
-# Podfiles
+# Podfiles & Installation
 
 target 'Pokedex' do
 
@@ -14,6 +14,7 @@ end
 ```bash
 pod install
 ```
+Once podfiles have been installed, use the .xcworkspace filetype.
 
 # Project status
 
