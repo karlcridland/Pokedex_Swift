@@ -22,4 +22,6 @@ Once podfiles have been installed, use the .xcworkspace filetype.
 # Project status
 
 1.2 Working version has been produced.<br>
-1.4 Updated version with new design.
+1.4 Updated version with new design.<br>
+1.5 Statistics changed to feature more relevant details.<br>
+1.6 Six tiles on home screen, allow user to view more information.
