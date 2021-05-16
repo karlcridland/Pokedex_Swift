@@ -16,6 +16,7 @@ class PKMStatisticView: UIScrollView {
     
     let statistics = UIView()
     let pokemon: PKMPokemon
+    let segments = UISegmentedControl(items: ["About","Statistics"])
     
     init(frame: CGRect, pokemon: PKMPokemon) {
         self.pokemon = pokemon
@@ -64,23 +65,22 @@ class PKMStatisticView: UIScrollView {
     
     private func setUpStatistics(){
         
-        self.statistics.frame = CGRect(x: 20, y: 313, width: frame.width-40, height: self.frame.height-353)
-        self.statistics.layer.cornerRadius = 8
+        self.statistics.frame = CGRect(x: 3, y: 253, width: self.frame.width-6, height: self.frame.height-353)
+        self.statistics.layer.cornerRadius = 32
         self.statistics.backgroundColor = .white
-        self.statistics.layer.borderWidth = 2
-        self.statistics.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4).cgColor
+//        self.statistics.layer.borderWidth = 2
+//        self.statistics.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4).cgColor
         self.statistics.clipsToBounds = true
         self.addSubview(statistics)
         
-        let segments = UISegmentedControl(items: ["About","Statistics"])
-        segments.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: 40)
-        segments.overrideUserInterfaceStyle = .light
-        segments.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).withAlphaComponent(0.8)
-        self.addSubview(segments)
-        segments.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Verdana Bold", size: 16)!], for: UIControl.State.normal)
-        segments.addTarget(self, action: #selector(segmenterClicked), for: .valueChanged)
-        segments.selectedSegmentIndex = 0
-        self.segmenterClicked(segments)
+        self.segments.frame = CGRect(x: self.statistics.frame.width/2-125, y: 35, width: 250, height: 40)
+        self.segments.overrideUserInterfaceStyle = .light
+        self.segments.backgroundColor = .white
+        self.statistics.addSubview(self.segments)
+        self.segments.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Verdana Bold", size: 16)!], for: UIControl.State.normal)
+        self.segments.addTarget(self, action: #selector(segmenterClicked), for: .valueChanged)
+        self.segments.selectedSegmentIndex = 0
+        self.segmenterClicked(self.segments)
         
     }
     
@@ -93,6 +93,11 @@ class PKMStatisticView: UIScrollView {
         self.statistics.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
+        self.statistics.addSubview(self.segments)
+        self.statistics.layer.shadowColor = UIColor.black.cgColor
+        self.statistics.layer.shadowOpacity = 0.2
+        self.statistics.layer.shadowOffset = CGSize(width: 0, height: -10)
+        self.statistics.layer.shadowRadius = 10
         
         if (sender.selectedSegmentIndex == 0){
             
@@ -127,8 +132,10 @@ class PKMStatisticView: UIScrollView {
         
         if let bottom = statistics.subviews.sorted(by: {$0.frame.maxY > $1.frame.maxY}).first{
             UIView.animate(withDuration: 0.1) {
-                self.statistics.frame = CGRect(x: self.statistics.frame.minX, y: self.statistics.frame.minY, width: self.statistics.frame.width, height: bottom.frame.maxY + 10)
-                self.contentSize = CGSize(width: self.frame.width, height: self.statistics.frame.maxY+20)
+                self.statistics.frame = CGRect(x: self.statistics.frame.minX, y: self.statistics.frame.minY, width: self.statistics.frame.width, height: 1000)
+                self.contentSize = CGSize(width: self.frame.width, height: self.statistics.frame.minY + bottom.frame.maxY + 20)
+                
+                
             }
         }
         
@@ -139,9 +146,12 @@ class PKMStatisticView: UIScrollView {
     // the screen indicating its value out of 100.
     
     func appendStat(key: String, value: String, align: NSTextAlignment) {
-        var y = CGFloat(10)
+        var y = CGFloat(100)
         if let bottom = statistics.subviews.sorted(by: {$0.frame.maxY > $1.frame.maxY}).first{
             y = bottom.frame.maxY + 10
+            if let segment = bottom as? UISegmentedControl{
+                y = segment.frame.maxY + 40
+            }
         }
         
         let left = UILabel(frame: CGRect(x: 20, y: y, width: 140, height: 40))

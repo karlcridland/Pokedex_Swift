@@ -149,7 +149,7 @@ class PokedexView: UIScrollView {
 
 // Creating the visuals / aesthetic for the two home screen button, the search and the reset buttons.
 
-extension UIButton{
+fileprivate extension UIButton{
     
     func pokedexSearch() {
         self.isHidden = true
