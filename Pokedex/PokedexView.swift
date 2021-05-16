@@ -27,8 +27,11 @@ class PokedexView: UIScrollView {
     let cover = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     let searchBar: PKMSearchInput
 
+    static let results = UILabel()
+    static let bookmark = UILabel()
     static var filterTypes = [String: [String]]()
     static var images = [Int: UIImage]()
+    static var dropdownActive = false
     
     override init(frame: CGRect) {
         
@@ -77,14 +80,25 @@ class PokedexView: UIScrollView {
         self.addSubview(self.clear)
         self.addSubview(self.search)
         self.addSubview(self.filter)
+        self.addSubview(PokedexView.results)
+        self.addSubview(PokedexView.bookmark)
         self.addSubview(self.screen)
         
         self.screen.center = CGPoint(x: self.screen.center.x, y: ((self.frame.height - self.screen.frame.height)/2)+(self.screen.frame.height/2))
         self.screen.originalFrame = self.screen.frame
+        
+        [PokedexView.results,PokedexView.bookmark].forEach { label in
+            label.frame = CGRect(x: self.screen.frame.minX+10, y: self.screen.frame.maxY+20, width: self.screen.frame.width-20, height: 30)
+            label.font = UIFont(name: "Verdana Bold", size: 14)
+            label.textColor = .white
+        }
+        PokedexView.bookmark.textAlignment = .right
+        
     }
     
     // Methods slide the dropdown search bar into place, showFilters for the type filters and showSearch for the input
-    // search bar. removeSearch clears either as they are both placed on the same super view.
+    // search bar. removeSearch clears either as they are both placed on the same super view. The dropdownActive variable
+    // is changed to true/false with the intent of the pokemon search tiles fading/appearing based on this result.
     
     @objc func showFilters(){
         searchBar.slide(true)
@@ -96,6 +110,7 @@ class PokedexView: UIScrollView {
             self.cover.isHidden = false
         }
         self.typeFilter.isHidden = false
+        PokedexView.dropdownActive = true
     }
     
     @objc func showSearch(){
@@ -113,6 +128,7 @@ class PokedexView: UIScrollView {
             self.cover.alpha = 0
         }completion: { _ in
             self.cover.isHidden = true
+            PokedexView.dropdownActive = false
         }
     }
     
