@@ -14,7 +14,7 @@ class PokedexView: UIScrollView {
     // Provides the main function for the app, all subviews can be found within the PokedexView, contains the screen
     // variable where a user can swipe through pokemon to choose to view statistics on. When clicked, the screen
     // expands to full size showing the pokemons statistics. The filters variable contains the views which a user
-    // interacts with to place a pokemon filter on the screen, narrowing a search result. 
+    // interacts with to place a pokemon filter on the screen, narrowing a search result.
     
     var pokemon = [PKMPokemon]()
     let screen: PokedexScreen
@@ -34,9 +34,8 @@ class PokedexView: UIScrollView {
         
         let margin = CGFloat(20)
         let width = [frame.width-(2*margin),CGFloat(400)].min()!
-        self.screen = PokedexScreen(frame: CGRect(x: margin, y: margin+50, width: width, height: width))
+        self.screen = PokedexScreen(frame: CGRect(x: margin, y: margin+50, width: width, height: width*1.5-10))
         self.screen.center = CGPoint(x: frame.width/2, y: self.screen.center.y)
-        self.screen.originalFrame = self.screen.frame
         self.searchBar = PKMSearchInput(frame: CGRect(x: 0, y: -(80+frame.minY), width: frame.width, height: 80+frame.minY))
         self.typeFilter = PKMFilterView(frame: CGRect(x: 0, y: frame.minY-10, width: frame.width, height: 90), screen: self.screen,title: "Type")
         
@@ -44,7 +43,6 @@ class PokedexView: UIScrollView {
         
         self.screen.pokedex = self
         self.searchBar.pokedex = self
-        
         self.startUp()
         
     }
@@ -80,7 +78,13 @@ class PokedexView: UIScrollView {
         self.addSubview(self.search)
         self.addSubview(self.filter)
         self.addSubview(self.screen)
+        
+        self.screen.center = CGPoint(x: self.screen.center.x, y: ((self.frame.height - self.screen.frame.height)/2)+(self.screen.frame.height/2))
+        self.screen.originalFrame = self.screen.frame
     }
+    
+    // Methods slide the dropdown search bar into place, showFilters for the type filters and showSearch for the input
+    // search bar. removeSearch clears either as they are both placed on the same super view.
     
     @objc func showFilters(){
         searchBar.slide(true)
@@ -111,6 +115,9 @@ class PokedexView: UIScrollView {
             self.cover.isHidden = true
         }
     }
+    
+    // Method clears all filters, both type and input search, hides the clear button and removes any text in the input
+    // field.
     
     @objc func clearClicked(){
         searchBar.input.text = ""

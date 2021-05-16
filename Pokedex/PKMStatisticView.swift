@@ -48,9 +48,7 @@ class PKMStatisticView: UIScrollView {
         }
         
         let stature = UILabel(frame: CGRect(x: underPicture.frame.width-293, y: 3, width: 280, height: 20))
-        if let weight = pokemon.weight, let height = pokemon.height{
-            stature.text = "height: \(height) / weight: \(weight)"
-        }
+        stature.text = "1st Edition"
         
         stature.textAlignment = .right
         [identification,stature].forEach { label in
@@ -67,11 +65,17 @@ class PKMStatisticView: UIScrollView {
     private func setUpStatistics(){
         
         self.statistics.frame = CGRect(x: 20, y: 313, width: frame.width-40, height: self.frame.height-353)
+        self.statistics.layer.cornerRadius = 8
+        self.statistics.backgroundColor = .white
+        self.statistics.layer.borderWidth = 2
+        self.statistics.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4).cgColor
+        self.statistics.clipsToBounds = true
         self.addSubview(statistics)
         
-        let segments = UISegmentedControl(items: ["types","abilities","moves"])
+        let segments = UISegmentedControl(items: ["About","Statistics"])
         segments.frame = CGRect(x: 20, y: 253, width: frame.width-40, height: 40)
-        segments.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
+        segments.overrideUserInterfaceStyle = .light
+        segments.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).withAlphaComponent(0.8)
         self.addSubview(segments)
         segments.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Verdana Bold", size: 16)!], for: UIControl.State.normal)
         segments.addTarget(self, action: #selector(segmenterClicked), for: .valueChanged)
@@ -81,7 +85,8 @@ class PKMStatisticView: UIScrollView {
     }
     
     // When the segmenter is clicked, all subviews from the statistics view are remvoved, and a value taken using the
-    // segments selected index from the data array are used.
+    // segments selected index from the data array are used. The height of the statistics view and the content size
+    // are changed based on the subviews contained within the statistics view.
     
     @objc func segmenterClicked(_ sender: UISegmentedControl){
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -89,64 +94,82 @@ class PKMStatisticView: UIScrollView {
             subview.removeFromSuperview()
         }
         
-        let data = [pokemon.types! as [Any],pokemon.abilities! as [Any],pokemon.moves! as [Any]]
-        let values = self.retrieveStatistics(data[sender.selectedSegmentIndex])
-        values.enumerated().forEach { (i,value) in
-            let background = UIView(frame: CGRect(x: 0, y: CGFloat(i)*60, width: self.statistics.frame.width, height: 50))
-            background.layer.cornerRadius = 8
-            background.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4)
-            background.layer.borderWidth = 2
-            background.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.4).cgColor
-            statistics.addSubview(background)
+        if (sender.selectedSegmentIndex == 0){
             
-            let label = UILabel(frame: CGRect(x: 20, y: 0, width: background.frame.width-40, height: 50))
-            label.text = value
-            background.addSubview(label)
-            label.font = UIFont(name: "Verdana Bold", size: 15)
+            var types = [String]()
+            self.pokemon.types?.forEach({ type in
+                if let name = type.type?.name{
+                    types.append(name)
+                }
+            })
+            self.appendStat(key: "types", value: types.joined(separator: ", "), align: .left)
+            self.appendStat(key: "height", value: "\(CGFloat(self.pokemon.height!)/10) m", align: .left)
+            self.appendStat(key: "weight", value: "\(CGFloat(self.pokemon.weight!)/10) kg", align: .left)
+            var abilities = [String]()
+            self.pokemon.abilities?.forEach({ type in
+                if let name = type.ability?.name{
+                    abilities.append(name)
+                }
+            })
+            self.appendStat(key: "abilities", value: abilities.joined(separator: ", "), align: .left)
+            self.appendStat(key: "base exp", value: String(self.pokemon.baseExperience!), align: .left)
             
-            self.statistics.frame = CGRect(x: self.statistics.frame.minX, y: self.statistics.frame.minY, width: self.statistics.frame.width, height: background.frame.maxY+20)
-            self.contentSize = CGSize(width: self.frame.width, height: self.statistics.frame.maxY)
+        }
+        else{
             
+            self.pokemon.stats?.enumerated().forEach({ (i,stat) in
+                if let name = stat.stat?.name, let value = stat.baseStat{
+                    self.appendStat(key: name, value: String(value), align: .right)
+                }
+            })
+            
+        }
+        
+        if let bottom = statistics.subviews.sorted(by: {$0.frame.maxY > $1.frame.maxY}).first{
+            UIView.animate(withDuration: 0.1) {
+                self.statistics.frame = CGRect(x: self.statistics.frame.minX, y: self.statistics.frame.minY, width: self.statistics.frame.width, height: bottom.frame.maxY + 10)
+                self.contentSize = CGSize(width: self.frame.width, height: self.statistics.frame.maxY+20)
+            }
         }
         
     }
     
-    // Sorts the data into a string array based on the statistics type.
-    //
-    // !! PKMNamedAPIResource shared type may be a way to make the code cleaner ??
+    // Takes the maximum y value in the statistics view and places two UILabels containing the key and value for example
+    // a pokemons height could be 0.7 meters - key: height, value: 0.7 m. If the value is an integer a bar is placed on
+    // the screen indicating its value out of 100.
     
-    private func retrieveStatistics(_ input: Any) -> [String]{
-        var stats = [String]()
-        
-        switch input{
-        case is [PKMPokemonType]:
-        
-            (input as! [PKMPokemonType]).forEach { stat in
-                if let name = stat.type?.name{
-                    
-                    stats.append(name)
-                }
-            }
-            break
-        case is [PKMPokemonMove]:
-            (input as! [PKMPokemonMove]).forEach { stat in
-                if let name = stat.move?.name{
-                    stats.append(name)
-                }
-            }
-            break
-        case is [PKMPokemonAbility]:
-            (input as! [PKMPokemonAbility]).forEach { stat in
-                if let name = stat.ability?.name{
-                    stats.append(name)
-                }
-            }
-            break
-        default:
-            break
+    func appendStat(key: String, value: String, align: NSTextAlignment) {
+        var y = CGFloat(10)
+        if let bottom = statistics.subviews.sorted(by: {$0.frame.maxY > $1.frame.maxY}).first{
+            y = bottom.frame.maxY + 10
         }
         
-        return stats.suffix(8)
+        let left = UILabel(frame: CGRect(x: 20, y: y, width: 140, height: 40))
+        left.text = key
+        statistics.addSubview(left)
+        left.font = UIFont(name: "Verdana Bold", size: 15)
+        left.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        
+        let right = UILabel(frame: CGRect(x: left.frame.maxX, y: y, width: statistics.frame.width-left.frame.maxX-20, height: left.frame.height))
+        right.text = value
+        right.numberOfLines = 0
+        statistics.addSubview(right)
+        right.font = UIFont(name: "Verdana Bold", size: 16)
+        right.textAlignment = align
+        right.textColor = .black
+        
+        if let n = Int(value), key != "base exp"{
+            let bar = UIView(frame: CGRect(x: statistics.frame.width-CGFloat(n)-60, y: y+20, width: CGFloat(n), height: 4))
+            bar.backgroundColor = pokemon.backgroundColor()
+            statistics.addSubview(bar)
+            bar.layer.cornerRadius = 2
+            
+            bar.layer.shadowColor = UIColor.black.cgColor
+            bar.layer.shadowOpacity = 0.3
+            bar.layer.shadowOffset = CGSize(width: 0, height: 3)
+            bar.layer.shadowRadius = 3
+        }
+        
     }
     
     required init?(coder: NSCoder) {
