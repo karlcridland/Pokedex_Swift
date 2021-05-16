@@ -39,13 +39,13 @@ class ViewController: UIViewController {
     }
     
     // Retrieves all pokemon and stores them in the pokedex array, sorts the array once it's full by the pokemon's
-    // id number. The maximum number loaded is 152 as I'm only sorting the first generation of pokemon. The progress
+    // id number. The maximum number loaded is 151 as I'm only sorting the first generation of pokemon. The progress
     // bar showing how much has been downloaded is updated each time a pokemon is added to the pokedex through the
     // pokedex's loading screen update method. 
     
     func downloadPokemon() {
         
-        let cap = 152
+        let cap = 151
         if let pokedex = self.pokedex{
             for i in 1 ... cap{
                 pokemonAPI.pokemonService.fetchPokemon(i){ data in

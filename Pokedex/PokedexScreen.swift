@@ -114,9 +114,9 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         var i = 0
         filteredPokemon().forEach { pokemon in
             let length = self.frame.width/2
-            let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/4)+(i%2)))+10, y: (length*CGFloat((i/2)%2))+10, width: length-20, height: length-20))
+            let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/6)+(i%2)))+10, y: (length*CGFloat((i/2)%3))+10, width: length-20, height: length-20))
             self.addSubview(display)
-            display.transform = CGAffineTransform(translationX: [5,-5,5,-5][i%4], y: [5,5,-5,-5][i%4])
+            display.transform = CGAffineTransform(translationX: [5,-5,5,-5,5,-5][i%6], y: [5,5,-5,-5,-15,-15][i%6])
             display.alpha = 0
             UIView.animate(withDuration: 0.3) {
                 display.alpha = 1
@@ -127,7 +127,7 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
             button.addTarget(self, action: #selector(fullscreen), for: .touchUpInside)
             i += 1
             
-            self.contentSize = CGSize(width: CGFloat((i+3)/4)*self.frame.width, height: self.frame.height)
+            self.contentSize = CGSize(width: CGFloat((i+5)/6)*self.frame.width, height: self.frame.height)
         }
     }
     
