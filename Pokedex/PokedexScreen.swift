@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import PokemonAPI
 
-class PokedexScreen: UIScrollView, UIScrollViewDelegate {
+class PokedexScreen: PKMScrollView {
     
     var pokedex: PokedexView?
     
@@ -39,7 +39,6 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
         self.isPagingEnabled = true
-        self.delegate = self
         self.backgroundColor = .white
         
         self.back.setImage(UIImage(named: "cross"), for: .normal)
@@ -105,7 +104,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    // First removes any instance of a UIView from the screen, then displays each pokemon onto the classes scrollview.
+    // First removes any instance of a UIView from the screen, then displays each pokemon onto the classes scrollview. Tiles
+    // fade into view only when returning from fullscreen mode, when appearing from a search they just appear.
     
     func displayPokemon() {
         self.subviews.forEach { subview in
@@ -117,9 +117,12 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
             let display = pokemon.display(frame: CGRect(x: (length*CGFloat(2*(i/6)+(i%2)))+10, y: (length*CGFloat((i/2)%3))+10, width: length-20, height: length-20))
             self.addSubview(display)
             display.transform = CGAffineTransform(translationX: [5,-5,5,-5,5,-5][i%6], y: [5,5,-5,-5,-15,-15][i%6])
-            display.alpha = 0
-            UIView.animate(withDuration: 0.3) {
-                display.alpha = 1
+            
+            if (!PokedexView.dropdownActive){
+                display.alpha = 0
+                UIView.animate(withDuration: 0.3) {
+                    display.alpha = 1
+                }
             }
 
             let button = PKMButton(frame: CGRect(x: 0, y: 0, width: display.frame.width, height: self.frame.height), pokemon: pokemon)
@@ -129,6 +132,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
             
             self.contentSize = CGSize(width: CGFloat((i+5)/6)*self.frame.width, height: self.frame.height)
         }
+        
+        self.refresh()
     }
     
     // Returns all the pokemon that fit the criterea a user has inputted. Criteria include: filtering through the type of
@@ -169,6 +174,8 @@ class PokedexScreen: UIScrollView, UIScrollViewDelegate {
         if let unique = typesRemaining.removeDuplicates(){
             pokedex?.typeFilter.updateValues(unique)
         }
+        
+        PokedexView.results.text = "Results: \(results.count)"
         
         return results
     }
