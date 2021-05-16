@@ -15,6 +15,9 @@ class PKMScrollView: UIScrollView, UIScrollViewDelegate {
         self.delegate = self
     }
     
+    // Takes the position of the users content offset x coordinate and maps it against the total length to get the page
+    // number. This is then displayed on the static UILabel on the PokedexView.
+    
     func refresh(){
         let pageNumber = Int((self.contentOffset.x+(self.frame.width/2))/self.frame.width)+1
         let totalPages = Int(self.contentSize.width/self.frame.width)
