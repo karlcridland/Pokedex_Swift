@@ -104,6 +104,7 @@ class PokedexView: UIScrollView {
         searchBar.slide(true)
         ViewController.changeTheme(.light)
         self.cover.alpha = 0
+        self.cover.isHidden = false
         UIView.animate(withDuration: 0.2) {
             self.cover.alpha = 1
         }completion: { _ in
@@ -124,6 +125,7 @@ class PokedexView: UIScrollView {
         ViewController.changeTheme(.dark)
         searchBar.input.resignFirstResponder()
         self.cover.alpha = 1
+        self.cover.isHidden = false
         UIView.animate(withDuration: 0.2) {
             self.cover.alpha = 0
         }completion: { _ in
